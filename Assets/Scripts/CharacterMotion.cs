@@ -63,10 +63,12 @@ public class CharacterMotion : MonoBehaviour
 
 	public void SetFaceLeft()
 	{
-		rigidbodyComponent.transform.eulerAngles = new Vector3(0.0f, 0.0f, 180.0f);
+		Vector3 scale = rigidbodyComponent.transform.localScale;
+		rigidbodyComponent.transform.localScale = new Vector3(-Mathf.Abs(scale.x), scale.y, scale.z);
 	}
 	public void SetFaceRight()
 	{
-		rigidbodyComponent.transform.eulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
+		Vector3 scale = rigidbodyComponent.transform.localScale;
+		rigidbodyComponent.transform.localScale = new Vector3(+Mathf.Abs(scale.x), scale.y, scale.z);
 	}
 }

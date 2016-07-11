@@ -15,33 +15,43 @@ public class CharacterInput : MonoBehaviour
 	void Update()
 	{
 		// todo: make input keys re-bindable
-		if( Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W) )
+		// todo: state handling improvements
+		if( !combat.IsAttacking() && (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W)) )
 		{
 			motion.Jump();
 		}
 
 		motion.MoveStop();
-		if( Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D) )
+		if( !combat.IsAttacking() )
 		{
-			if( Input.GetKey(KeyCode.LeftShift) )
+			if( Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D) )
 			{
-				motion.WalkLeft();
+				if( Input.GetKey(KeyCode.LeftShift) )
+				{
+					motion.WalkLeft();
+				}
+				else
+				{
+					motion.RunLeft();
+				}
 			}
-			else
+			if( Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A) )
 			{
-				motion.RunLeft();
+				if( Input.GetKey(KeyCode.LeftShift) )
+				{
+					motion.WalkRight();
+				}
+				else
+				{
+					motion.RunRight();
+				}
 			}
 		}
-		if( Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A) )
+
+		// Combat input
+		if( !combat.IsAttacking() && Input.GetMouseButtonDown(0) )
 		{
-			if( Input.GetKey(KeyCode.LeftShift) )
-			{
-				motion.WalkRight();
-			}
-			else
-			{
-				motion.RunRight();
-			}
+			combat.WeaponAttack();
 		}
 	}
 }
