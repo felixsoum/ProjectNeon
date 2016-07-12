@@ -17,6 +17,7 @@ public class CharacterMotion : MonoBehaviour
 	void Start()
 	{
 		Debug.Assert(rigidbodyComponent != null, "Rigidbody not specified for character motion.");
+		Jump();
 	}
 	
 	// Vertical
