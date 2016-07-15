@@ -53,5 +53,9 @@ public class CharacterInput : MonoBehaviour
 		{
 			combat.WeaponAttack();
 		}
+		if( !combat.IsAttacking() && Input.GetMouseButtonDown(1) )
+		{
+			combat.RangeAttack();
+		}
 	}
 }
