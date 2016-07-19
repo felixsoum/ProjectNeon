@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class CharacterInput : MonoBehaviour
 {
@@ -7,53 +7,66 @@ public class CharacterInput : MonoBehaviour
 	public CharacterMotion motion = null;
 	public CharacterCombat combat = null;
 
+	public CharacterState state = null;
+
 	void Start()
 	{
-		Debug.Assert(motion != null && combat != null, "Missing references not set for character input.");
+		Debug.Assert(motion != null && combat != null && state != null, "Missing references not set for character input.");
+
+		state.AddActionUpdate(CharacterState.Type.Idle, ProcessJump);
+		state.AddActionUpdate(CharacterState.Type.Jump, ProcessJumpFall);
+		state.AddActionUpdate(CharacterState.Not(CharacterState.Type.Attack), ProcessMovement);
+		state.AddActionUpdate(CharacterState.Not(CharacterState.Type.Attack), ProcessCombat);
+		state.AddActionEnter(CharacterState.Type.Attack, () => { motion.MoveStop(); });
 	}
 
-	void Update()
+	private void ProcessJumpFall()
 	{
-		// todo: make input keys re-bindable
-		// todo: state handling improvements
-		if( !combat.IsAttacking() && (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W)) )
+		if( Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.W) )
+		{
+			motion.JumpFall();
+		}
+	}
+	private void ProcessJump()
+	{
+		if( Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W) )
 		{
 			motion.Jump();
 		}
-
+	}
+	private void ProcessMovement()
+	{
 		motion.MoveStop();
-		if( !combat.IsAttacking() )
+		if( Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D) )
 		{
-			if( Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D) )
+			if( Input.GetKey(KeyCode.LeftShift) )
 			{
-				if( Input.GetKey(KeyCode.LeftShift) )
-				{
-					motion.WalkLeft();
-				}
-				else
-				{
-					motion.RunLeft();
-				}
+				motion.WalkLeft();
 			}
-			if( Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A) )
+			else
 			{
-				if( Input.GetKey(KeyCode.LeftShift) )
-				{
-					motion.WalkRight();
-				}
-				else
-				{
-					motion.RunRight();
-				}
+				motion.RunLeft();
 			}
 		}
-
-		// Combat input
-		if( !combat.IsAttacking() && Input.GetMouseButtonDown(0) )
+		if( Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A) )
+		{
+			if( Input.GetKey(KeyCode.LeftShift) )
+			{
+				motion.WalkRight();
+			}
+			else
+			{
+				motion.RunRight();
+			}
+		}
+	}
+	private void ProcessCombat()
+	{
+		if( Input.GetMouseButtonDown(0) )
 		{
 			combat.WeaponAttack();
 		}
-		if( !combat.IsAttacking() && Input.GetMouseButtonDown(1) )
+		if( Input.GetMouseButtonDown(1) )
 		{
 			combat.RangeAttack();
 		}

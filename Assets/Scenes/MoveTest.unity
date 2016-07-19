@@ -704,6 +704,7 @@ GameObject:
   - 114: {fileID: 1114508360}
   - 114: {fileID: 1114508359}
   - 114: {fileID: 1114508366}
+  - 114: {fileID: 1114508367}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -724,6 +725,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon: {fileID: 563436489}
   projectilePrefab: {fileID: 0}
+  state: {fileID: 1114508367}
 --- !u!114 &1114508360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -740,6 +742,11 @@ MonoBehaviour:
   jumpTime: 0.4
   walkSpeed: 3
   runSpeed: 6
+  state: {fileID: 1114508367}
+  groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967035
+  groundDistance: 0.35
 --- !u!114 &1114508361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -754,6 +761,7 @@ MonoBehaviour:
   motion: {fileID: 1114508360}
   combat: {fileID: 1114508359}
   target: {fileID: 1583103906}
+  state: {fileID: 1114508367}
 --- !u!50 &1114508362
 Rigidbody2D:
   serializedVersion: 2
@@ -840,6 +848,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53ed6a789919f4748bb91b149d19521d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1114508367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1114508358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65307508d15f4b24eb621c92622a2058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1528164231
 GameObject:
   m_ObjectHideFlags: 0
@@ -918,6 +937,7 @@ GameObject:
   - 114: {fileID: 1583103912}
   - 114: {fileID: 1583103911}
   - 114: {fileID: 1583103914}
+  - 114: {fileID: 1583103915}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1013,6 +1033,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon: {fileID: 881356487}
   projectilePrefab: {fileID: 106526, guid: 604fccf869899f24da053064267d2c23, type: 2}
+  state: {fileID: 1583103915}
 --- !u!114 &1583103912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1029,6 +1050,11 @@ MonoBehaviour:
   jumpTime: 0.4
   walkSpeed: 3
   runSpeed: 6
+  state: {fileID: 1583103915}
+  groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967035
+  groundDistance: 0.35
 --- !u!114 &1583103913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1042,6 +1068,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   motion: {fileID: 1583103912}
   combat: {fileID: 1583103911}
+  state: {fileID: 1583103915}
 --- !u!114 &1583103914
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1051,6 +1078,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 53ed6a789919f4748bb91b149d19521d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1583103915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1583103906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65307508d15f4b24eb621c92622a2058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2040706418

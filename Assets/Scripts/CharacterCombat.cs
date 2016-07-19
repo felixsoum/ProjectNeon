@@ -9,9 +9,11 @@ public class CharacterCombat : MonoBehaviour
 	// Specify projectile for range attack to spawn.
 	public GameObject projectilePrefab = null;
 
+	public CharacterState state = null;
+
 	void Start()
 	{
-		Debug.Assert(weapon != null, "Weapon reference not set for character combat.");
+		Debug.Assert(weapon != null && state != null, "References not set for character combat.");
 	}
 
 	public void RangeAttack()
@@ -27,11 +29,8 @@ public class CharacterCombat : MonoBehaviour
 
 	public void WeaponAttack()
 	{
-		weapon.SetState(CharacterWeapon.State.Attack);
+		state.Set(CharacterState.Type.Attack);
+		weapon.PlayAnimation(CharacterWeapon.Animation.Attack, () => { state.Set(CharacterState.Type.Idle); });
 	}
-
-	public bool IsAttacking()
-	{
-		return weapon.GetState() == CharacterWeapon.State.Attack; 
-	}
+	
 }

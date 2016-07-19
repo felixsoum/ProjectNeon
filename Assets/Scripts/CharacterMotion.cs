@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class CharacterMotion : MonoBehaviour
 {
@@ -14,12 +14,20 @@ public class CharacterMotion : MonoBehaviour
 	public float walkSpeed = 3.0f;
 	public float runSpeed = 6.0f;
 
+	public CharacterState state = null;
+
+	public LayerMask groundLayerMask;
+	public float groundDistance = 0.35f;
+
 	void Start()
 	{
-		Debug.Assert(rigidbodyComponent != null, "Rigidbody not specified for character motion.");
+		Debug.Assert(rigidbodyComponent != null && state != null, "References not specified for character motion.");
 		Jump();
+
+		state.AddActionUpdate(CharacterState.Type.Jump, DetectFall);
+		state.AddActionUpdate(CharacterState.Type.Fall, DetectGround);
 	}
-	
+
 	// Vertical
 	public void Jump()
 	{
@@ -33,7 +41,14 @@ public class CharacterMotion : MonoBehaviour
 			rigidbodyComponent.gravityScale = (-jumpVelocity / jumpTimeHalf) / Physics2D.gravity.y;
 
 			rigidbodyComponent.velocity = new Vector2(rigidbodyComponent.velocity.x, jumpVelocity);
+			state.Set(CharacterState.Type.Jump);
 		}
+	}
+	// Makes character start falling from jump immediately 
+	public void JumpFall()
+	{
+		rigidbodyComponent.velocity = Vector2.zero;
+		state.Set(CharacterState.Type.Fall);
 	}
 
 	// Horizontal
@@ -71,5 +86,23 @@ public class CharacterMotion : MonoBehaviour
 	{
 		Vector3 scale = rigidbodyComponent.transform.localScale;
 		rigidbodyComponent.transform.localScale = new Vector3(+Mathf.Abs(scale.x), scale.y, scale.z);
+	}
+
+	private void DetectFall()
+	{
+		if( rigidbodyComponent.velocity.y <= 0.0f )
+		{
+			state.Set(CharacterState.Type.Fall);
+		}
+	}
+	private void DetectGround()
+	{
+		// todo can specify the distance in editor visually via line collider
+		var hits = new List<RaycastHit2D>(Physics2D.LinecastAll(this.rigidbodyComponent.position, this.rigidbodyComponent.position + Vector2.down * groundDistance, groundLayerMask.value));
+		hits.RemoveAll(( h ) => { return h.rigidbody == rigidbodyComponent; });
+		if( hits.Count > 0 )
+		{
+			state.Set(CharacterState.Type.Idle);
+		}
 	}
 }
