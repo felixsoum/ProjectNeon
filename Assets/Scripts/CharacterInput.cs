@@ -37,7 +37,7 @@ public class CharacterInput : MonoBehaviour
 	private void ProcessMovement()
 	{
 		motion.MoveStop();
-		if( Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D) )
+		if( Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.RightArrow) )
 		{
 			if( Input.GetKey(KeyCode.LeftShift) )
 			{
@@ -48,7 +48,7 @@ public class CharacterInput : MonoBehaviour
 				motion.RunLeft();
 			}
 		}
-		if( Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A) )
+		if( Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.LeftArrow) )
 		{
 			if( Input.GetKey(KeyCode.LeftShift) )
 			{
@@ -62,6 +62,7 @@ public class CharacterInput : MonoBehaviour
 	}
 	private void ProcessCombat()
 	{
+		/* Disabled because combat controlled by rhythm
 		if( Input.GetMouseButtonDown(0) )
 		{
 			combat.WeaponAttack();
@@ -70,5 +71,6 @@ public class CharacterInput : MonoBehaviour
 		{
 			combat.RangeAttack();
 		}
+		*/
 	}
 }

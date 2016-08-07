@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class HackKeySystem : MonoBehaviour
 {
+	public CharacterCombat combat;
     public Text comboText;
     public AudioSource rhythmAudio;
     public AudioSource hitAudio;
@@ -58,6 +59,7 @@ public class HackKeySystem : MonoBehaviour
                         comboText.gameObject.SetActive(true);
                         key.Hit();
                         hitAudio.Play();
+                        combat.RangeAttack();
                         break;
                     }
                 }
