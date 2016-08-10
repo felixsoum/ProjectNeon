@@ -24,8 +24,16 @@ public class DamageDetection : MonoBehaviour
 			// todo notify things here
 			Debug.Log(this + " DAMAGED BY " + other);
 
-			// For now just teleport the object as if killed and respawned
-			this.transform.position = Vector3.zero;
+			//Ghetto handling
+			if(this.CompareTag("Player"))
+			{
+				// For now just teleport the object as if killed and respawned
+				this.transform.position = Vector3.zero;
+			}
+			else
+			{
+				Destroy(this.gameObject);
+			}
 		}
 	}
 }

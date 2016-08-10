@@ -28,6 +28,7 @@ public class EnemyAI : MonoBehaviour
 	void Start()
 	{
 		Debug.Assert(motion != null && combat != null && state != null && characterState != null, "Missing references not set for enemy AI.");
+		Debug.Assert(target != null, "Target reference not set on EnemyAI.");
 
 		if( movePath != null )
 		{
