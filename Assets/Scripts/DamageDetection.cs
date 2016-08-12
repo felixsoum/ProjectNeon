@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class DamageDetection : MonoBehaviour
 {
+    public GameObject deathParticle;
+
     const int PLAYER_HP_MAX = 5;
     int playerHp = PLAYER_HP_MAX;
 	// Use unity game object tags to determine what damages what.
@@ -33,11 +35,19 @@ public class DamageDetection : MonoBehaviour
                 {
                     gameObject.SetActive(false);
                     Invoke("Respawn", 3f);
+                    if (deathParticle != null)
+                    {
+                        Instantiate(deathParticle, gameObject.transform.position, Quaternion.identity);
+                    }
                 }
             }
 			else
 			{
-				Destroy(this.gameObject);
+                if (deathParticle != null)
+                {
+                    Instantiate(deathParticle, gameObject.transform.position, Quaternion.identity);
+                }
+                Destroy(this.gameObject);
 			}
 		}
 	}
