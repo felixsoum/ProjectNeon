@@ -22,14 +22,14 @@ public class CharacterInput : MonoBehaviour
 
 	private void ProcessJumpFall()
 	{
-		if( Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.W) )
+		if( Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.UpArrow))
 		{
 			motion.JumpFall();
 		}
 	}
 	private void ProcessJump()
 	{
-		if( Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W) )
+		if( Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
 		{
 			motion.Jump();
 		}

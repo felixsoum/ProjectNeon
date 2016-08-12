@@ -50,6 +50,14 @@ public class CharacterCombat : MonoBehaviour
 			GameObject projectile = Instantiate(projectilePrefab, this.transform.position, this.transform.rotation) as GameObject;
 			var projectileComponent = projectile.GetComponent<StraightProjectile>();
 			projectileComponent.SetDirection(this.transform.localScale.x > 0.0f ? Vector3.right : Vector3.left);
+
+            if (gameObject.transform.localScale.x < 0)
+            {
+                Vector3 pScale = projectile.transform.localScale;
+                pScale *= -1f;
+                projectile.transform.localScale = pScale;
+            }
+            
 		}
 	}
 
