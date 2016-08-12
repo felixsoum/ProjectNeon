@@ -22,7 +22,7 @@ public class CharacterMotion : MonoBehaviour
 	void Start()
 	{
 		Debug.Assert(rigidbodyComponent != null && state != null, "References not specified for character motion.");
-		Jump();
+		//Jump();
 
 		state.AddActionUpdate(CharacterState.Type.Jump, DetectFall);
 		state.AddActionUpdate(CharacterState.Type.Fall, DetectGround);
