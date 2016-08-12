@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class DamageDetection : MonoBehaviour
 {
@@ -60,8 +61,11 @@ public class DamageDetection : MonoBehaviour
     void Respawn()
     {
         // For now just teleport the object as if killed and respawned
-        gameObject.SetActive(true);
-        this.transform.position = Vector3.zero;
-        playerHp = PLAYER_HP_MAX;
+        //gameObject.SetActive(true);
+        //this.transform.position = Vector3.zero;
+        //playerHp = PLAYER_HP_MAX;
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
     }
 }

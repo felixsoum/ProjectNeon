@@ -18,7 +18,7 @@ public class GameMenu : MonoBehaviour
 	// Put all enemies under a parent and link it here, to detect when enemies are all dead
 	public GameObject enemyContainer = null;
 
-
+    public Text anomaliesCountText;
 
 	void Start()
 	{
@@ -30,7 +30,9 @@ public class GameMenu : MonoBehaviour
 
 	void Update()
 	{
-		if( enemyContainer != null && enemyContainer.transform.childCount == 0 )
+        anomaliesCountText.text = enemyContainer.transform.childCount.ToString();
+
+        if ( enemyContainer != null && enemyContainer.transform.childCount == 0 )
 		{
 			if( menuAnimator != null )
 			{
