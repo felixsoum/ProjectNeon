@@ -6,6 +6,4 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Test/MergeDestination.unity
-  - enabled: 1
-    path: Assets/Scenes/Test/MergeSource.unity
+    path: Assets/Scenes/Main.unity
